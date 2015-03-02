@@ -7,10 +7,9 @@ test('it returns a promise which resolves', function(assert) {
 
   staggeredCall([1,2,3], function() {
     return Ember.RSVP.Promise.resolve();
-  }).then(function(result) {
+  }).then(function() {
     assert.ok(true);
   });
-
 });
 
 test('it returns a promise which resolves, given an empty array', function(assert) {
@@ -18,8 +17,19 @@ test('it returns a promise which resolves, given an empty array', function(asser
 
   staggeredCall([], function() {
     return Ember.RSVP.Promise.resolve();
-  }).then(function(result) {
+  }).then(function() {
     assert.ok(true);
   });
+});
 
+test('it resolves with the input array', function(assert) {
+  assert.expect(1);
+
+  var array = [1,2,3];
+
+  staggeredCall(array, function() {
+    return Ember.RSVP.Promise.resolve();
+  }).then(function(result) {
+    assert.equal(result, array);
+  });
 });

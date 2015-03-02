@@ -12,7 +12,7 @@ var staggeredCall = function(array, func, index){
 
     } else {
 
-      resolve();
+      resolve(array);
 
     }
   });
