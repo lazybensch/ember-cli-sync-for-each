@@ -67,8 +67,8 @@ test('it rejects with the rejection reason', function(assert) {
 
   staggeredCall(array, function() {
     return Ember.RSVP.Promise.reject(msg);
-  }).then(null, function(reason) {
-    assert.equal(reason, msg);
+  }).then(null, function(result) {
+    assert.equal(result, msg);
   });
 });
 
@@ -94,6 +94,31 @@ test('it stops execution after rejection', function(assert) {
       }
       resolve();
     });
+  });
+});
+
+test('it continues execution after rejection, when force is set', function(assert) {
+  assert.expect(5);
+
+  staggeredCall([1,2,3,4,5], function(item) {
+    return new Ember.RSVP.Promise(function(resolve, reject){
+      assert.ok(true);
+      if (item === 3) {
+        reject();
+      }
+      resolve();
+    });
+  }, true);
+});
+
+test('it rejects with the rejection reason, when force is set', function(assert) {
+  assert.expect(1);
+  var msg = 'foo';
+
+  staggeredCall(array, function() {
+    return Ember.RSVP.Promise.reject(msg);
+  }, true).then(null, function(reason){
+    assert.equal(reason, msg);
   });
 });
 
