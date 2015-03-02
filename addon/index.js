@@ -9,7 +9,7 @@ var syncForEach = function(array, callback, force, index){
 
       var result = callback.call(this, array[index], index, array);
 
-      if (Ember.typeOf(result) === 'object' && Ember.typeOf(result.then) === 'function') {
+      if (result && Ember.typeOf(result['then']) === 'function') {
 
         if (force) {
           result.then(null,reject).finally(function() {
