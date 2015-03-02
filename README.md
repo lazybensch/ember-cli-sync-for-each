@@ -1,4 +1,4 @@
-# Ember-cli-staggered-call
+# Ember-cli-sync-for-each
 
 This README outlines the details of collaborating on this Ember addon.
 

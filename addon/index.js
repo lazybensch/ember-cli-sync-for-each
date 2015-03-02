@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-var staggeredCall = function(array, callback, force, index){
+var syncForEach = function(array, callback, force, index){
   index = Ember.typeOf(index) === 'undefined' ? 0 : index;
   force = Ember.typeOf(force) === 'undefined' ? false : force;
 
@@ -13,16 +13,16 @@ var staggeredCall = function(array, callback, force, index){
 
         if (force) {
           result.then(null,reject).finally(function() {
-            staggeredCall(array, callback, force, ++index).then(resolve, reject);
+            syncForEach(array, callback, force, ++index).then(resolve, reject);
           });
         } else {
           result.then( function() {
-            staggeredCall(array, callback, force, ++index).then(resolve, reject);
+            syncForEach(array, callback, force, ++index).then(resolve, reject);
           }, reject);
         }
       } else {
 
-        staggeredCall(array, callback,force,  ++index).then(resolve, reject);
+        syncForEach(array, callback,force,  ++index).then(resolve, reject);
       }
 
     } else {
@@ -32,4 +32,4 @@ var staggeredCall = function(array, callback, force, index){
   });
 };
 
-export default staggeredCall;
+export default syncForEach;

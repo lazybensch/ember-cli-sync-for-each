@@ -1,5 +1,5 @@
 {
-  "name": "ember-cli-staggered-call",
+  "name": "ember-cli-sync-for-each",
   "version": "0.0.0",
   "description": "Synchronously calls a function on each item of an array. If that function is asynchronous, it will wait for the previous call to resolve before triggering the next.",
   "directories": {
@@ -11,7 +11,7 @@
     "build": "ember build",
     "test": "ember test"
   },
-  "repository": "https://github.com/lazybensch/ember-cli-staggered-call",
+  "repository": "https://github.com/lazybensch/ember-cli-sync-for-each-call",
   "engines": {
     "node": ">= 0.10.0"
   },
@@ -36,8 +36,8 @@
   },
   "keywords": [
     "ember-addon",
-    "ember-cli-staggered-call",
-    "staggered-call",
+    "ember-cli-sync-for-each",
+    "sync-for-each",
     "promise"
   ],
   "ember-addon": {
