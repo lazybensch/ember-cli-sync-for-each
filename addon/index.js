@@ -1,14 +1,24 @@
 import Ember from 'ember';
 
-var staggeredCall = function(array, func, index){
+var staggeredCall = function(array, callback, index){
   index = Ember.typeOf(index) === 'undefined' ? 0 : index;
 
   return new Ember.RSVP.Promise(function(resolve, reject) {
     if (index < array.length) {
 
-      func.call(this, array[index], index, array).then( function() {
-        staggeredCall(array, func, ++index).then(resolve, reject);
-      }, reject);
+      var result = callback.call(this, array[index], index, array);
+
+      if (Ember.typeOf(result) === 'object' && Ember.typeOf(result.then) === 'function') {
+
+        result.then( function() {
+          staggeredCall(array, callback, ++index).then(resolve, reject);
+        }, reject);
+
+      } else {
+
+        staggeredCall(array, callback, ++index).then(resolve, reject);
+
+      }
 
     } else {
 

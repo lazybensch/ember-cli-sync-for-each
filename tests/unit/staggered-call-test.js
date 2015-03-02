@@ -12,6 +12,16 @@ test('it returns a promise which resolves', function(assert) {
   });
 });
 
+test('it returns a promise which resolves, given a synchronous callback', function(assert) {
+  assert.expect(1);
+
+  staggeredCall([1,2,3], function() {
+    return;
+  }).then(function() {
+    assert.ok(true);
+  });
+});
+
 test('it returns a promise which rejects if one call rejects', function(assert) {
   assert.expect(1);
 
