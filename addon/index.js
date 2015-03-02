@@ -8,7 +8,7 @@ var staggeredCall = function(array, func, index){
 
       func.call(this, array[index], index, array).then( function() {
         staggeredCall(array, func, ++index).then(resolve, reject);
-      });
+      }, reject);
 
     } else {
 
