@@ -1,7 +1,7 @@
 {
   "name": "ember-cli-staggered-call",
   "version": "0.0.0",
-  "description": "Synchronously calls an asynchronous function on an array of objects. Allways waiting for the previous call to resolve before triggering the next.",
+  "description": "Synchronously calls a function on each item of an array. If that function is asynchronous, it will wait for the previous call to resolve before triggering the next.",
   "directories": {
     "doc": "doc",
     "test": "tests"
@@ -35,9 +35,9 @@
     "glob": "^4.0.5"
   },
   "keywords": [
-    "ember-addon"
-    "ember-cli-staggered-call"
-    "staggered-call"
+    "ember-addon",
+    "ember-cli-staggered-call",
+    "staggered-call",
     "promise"
   ],
   "ember-addon": {
