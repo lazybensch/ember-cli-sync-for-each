@@ -1,6 +1,6 @@
 {
   "name": "ember-cli-sync-for-each",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Synchronously calls a function on each item of an array. If that function is asynchronous, it will wait for the previous call to resolve before triggering the next.",
   "directories": {
     "doc": "doc",
