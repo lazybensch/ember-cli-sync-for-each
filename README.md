@@ -119,9 +119,21 @@ will output:
 > baz
 ```
 
+## Installation
+
+To use this addon in your project, just type:
+```
+$ ember install:addon ember-cli-sync-for-each
+```
+and then import the function whereever you need it:
+```
+import syncForEach from 'ember-cli-sync-for-each';
+```
+
 ## Contributing
 
 * `git clone https://github.com/lazybensch/ember-cli-sync-for-each`
 * `cd ember-cli-sync-for-each`
 * `npm install`
 * `bower install`
+* `ember test`
