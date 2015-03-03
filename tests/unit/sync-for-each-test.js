@@ -132,3 +132,25 @@ test('it makes index, and input array available in callback', function(assert) {
     });
   });
 });
+
+test('it works for ember instances', function(assert) {
+  assert.expect(1);
+
+  array = ['foo', 'bar', 'baz'].map(function(name) {
+    return Ember.Object.create({
+      name: name,
+      rename: function(name) {
+        var _this = this;
+        return new Ember.RSVP.Promise(function(resolve){
+          _this.set('name', name);
+        });
+      }
+    });
+  });
+
+  syncForEach(array, function(item) {
+    item.rename('bar');
+  }).then(function(result) {
+    assert.deepEqual(result.mapBy('name'), ['bar', 'bar', 'bar']);
+  });
+});
