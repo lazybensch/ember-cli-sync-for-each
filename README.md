@@ -13,9 +13,9 @@ syncForEach(array, callback, force, index);
 | ------------- |:-----|
 | array         | List of items for which the callback is going to be executed. |
 | callback      | Function that is going to be executed synchronously for every item. |
+|               | *signature: (item, index, array)* |
 | force         | If set to `true`, execution will not stop should the callback reject for one item. |
 | index         | Specifies at what position the function should start traversing the array. (used internally) |
-
 
 ## Guide
 
@@ -120,18 +120,36 @@ will output:
 > baz
 ```
 
+### indicate loading
+
+Imagine you need to load a bunch of different models with so much data, that you want to display some kind of loading indicator. With `syncForEach` you can display a loading message to the user while loading your model data one after another, allways updating the message after each successfull load.
+
+```javascript
+_this = this;
+syncForEach(['account', 'user', 'report', 'statistic'], function(model) {
+  $('#loading-indicator').html('loading ' + model + 's');
+  _this.store.find(model);
+});
+```
+
 ## Installation
 
 To use this addon in your project, just type:
 ```
 $ ember install:addon ember-cli-sync-for-each
 ```
-and then import the function whereever you need it:
+or for older versions of ember-cli *(pre 1.4.0)*:
+```
+$ npm install --save-dev ember-cli-sync-for-each
+```
+and then import the function wherever you need it:
 ```
 import syncForEach from 'ember-cli-sync-for-each';
 ```
 
 ## Contributing
+
+Im happy about everyone that wants to contribute, even opening an issue on github. However if you want to contribute to the code just follow the setup instructions below. If you are scared, since you've never contributed to open source projects before, you are in luck! This is a pretty simple addon. Just have a look into the [implementation](https://github.com/lazybensch/ember-cli-sync-for-each/blob/master/addon/index.js), and [unit tests](https://github.com/lazybensch/ember-cli-sync-for-each/blob/master/tests/unit/sync-for-each-test.js), that's all there is to it.
 
 * `git clone https://github.com/lazybensch/ember-cli-sync-for-each`
 * `cd ember-cli-sync-for-each`
