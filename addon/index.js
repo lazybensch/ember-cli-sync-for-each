@@ -1,8 +1,10 @@
 import Ember from 'ember';
 
-var syncForEach = function(array, callback, force, index){
+var syncForEach = function(enumerable, callback, force, index){
   index = Ember.typeOf(index) === 'undefined' ? 0 : index;
   force = Ember.typeOf(force) === 'undefined' ? false : force;
+
+  var array = enumerable.get('content') || enumerable;
 
   return new Ember.RSVP.Promise(function(resolve, reject) {
     if (index < array.length) {
@@ -13,21 +15,21 @@ var syncForEach = function(array, callback, force, index){
 
         if (force) {
           result.then(null,reject).finally(function() {
-            syncForEach(array, callback, force, ++index).then(resolve, reject);
+            syncForEach(enumerable, callback, force, ++index).then(resolve, reject);
           });
         } else {
           result.then( function() {
-            syncForEach(array, callback, force, ++index).then(resolve, reject);
+            syncForEach(enumerable, callback, force, ++index).then(resolve, reject);
           }, reject);
         }
       } else {
 
-        syncForEach(array, callback,force,  ++index).then(resolve, reject);
+        syncForEach(enumerable, callback,force,  ++index).then(resolve, reject);
       }
 
     } else {
 
-      resolve(array);
+      resolve(enumerable);
     }
   });
 };

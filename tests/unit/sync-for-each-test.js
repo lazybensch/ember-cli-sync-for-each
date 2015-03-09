@@ -51,13 +51,32 @@ test('it returns a promise which resolves, given an empty array', function(asser
   });
 });
 
-test('it resolves with the input array', function(assert) {
-  assert.expect(1);
+test('it works with array', function(assert) {
+  assert.expect(2);
 
-  syncForEach(array, function() {
+  var testArray = [];
+
+  syncForEach(array, function(item) {
+    testArray.push(item);
     return Ember.RSVP.Promise.resolve();
   }).then(function(result) {
-    assert.equal(result, array);
+    assert.equal(result, array, 'returns the input array');
+    assert.deepEqual(testArray, array, 'executes in correct order');
+  });
+});
+
+test('it works with DS.ManyArray', function(assert) {
+  assert.expect(2);
+
+  var manyArray = DS.ManyArray.create({content: array});
+  var testArray = [];
+
+  syncForEach(manyArray, function(item) {
+    testArray.push(item);
+    return Ember.RSVP.Promise.resolve();
+  }).then(function(result) {
+    assert.equal(result, manyArray, 'returns the input array');
+    assert.deepEqual(testArray, array, 'executes in correct order');
   });
 });
 
